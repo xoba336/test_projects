@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPITest", "WebAPITest\WebAPITest.csproj", "{B1FB44CC-96A5-40C8-B2F3-328B585694C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Angular", "Angular\Angular.csproj", "{A93136DF-F48E-43D8-A13B-29A0F27334E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Babai.Angular", "Angular\Babai.Angular.csproj", "{A93136DF-F48E-43D8-A13B-29A0F27334E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Babai.CustomMiddleware", "EmptyCore\Babai.CustomMiddleware.csproj", "{DAED071A-8E6D-48DA-8C8A-4B6777BA2FDC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{A93136DF-F48E-43D8-A13B-29A0F27334E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A93136DF-F48E-43D8-A13B-29A0F27334E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A93136DF-F48E-43D8-A13B-29A0F27334E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAED071A-8E6D-48DA-8C8A-4B6777BA2FDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAED071A-8E6D-48DA-8C8A-4B6777BA2FDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAED071A-8E6D-48DA-8C8A-4B6777BA2FDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAED071A-8E6D-48DA-8C8A-4B6777BA2FDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebAPITest.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : ApiController
+    public class ValuesController : Controller
     {
+        // action
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
@@ -16,6 +17,7 @@ namespace WebAPITest.Controllers
             return new string[] { "value1", "value2" };
         }
 
+        // action
         // GET api/values/5
         [HttpGet("{id}")]
         public string Get(int id)
