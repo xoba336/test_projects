@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Babai.Angular", "Angular\Ba
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Babai.CustomMiddleware", "EmptyCore\Babai.CustomMiddleware.csproj", "{DAED071A-8E6D-48DA-8C8A-4B6777BA2FDC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Babai.EntityFramework", "Babai.EntityFramework\Babai.EntityFramework.csproj", "{6450CFA7-41C2-40DA-BE78-BED4E7004A4D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{DAED071A-8E6D-48DA-8C8A-4B6777BA2FDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAED071A-8E6D-48DA-8C8A-4B6777BA2FDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAED071A-8E6D-48DA-8C8A-4B6777BA2FDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6450CFA7-41C2-40DA-BE78-BED4E7004A4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6450CFA7-41C2-40DA-BE78-BED4E7004A4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6450CFA7-41C2-40DA-BE78-BED4E7004A4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6450CFA7-41C2-40DA-BE78-BED4E7004A4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,13 @@
+﻿@model List<Phone>
+@{
+    ViewData["Title"] = "Phones";
+}
+
+<a asp-action="Create">Добавить модель</a>
+<table class="table">
+    <tr><td>Модель</td><td>Производитель</td><td>Цена</td></tr>
+    @foreach (var item in Model)
+    {
+        <tr><td>@item.Name</td><td>@item.Company</td><td>@item.Price</td></tr>
+    }
+</table>

@@ -9,19 +9,20 @@ namespace WebAPITest.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        // action
+        // getting service through attribute [FromServices]
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<string> Get([FromServices] SimpleService service)
         {
             return new string[] { "value1", "value2" };
         }
 
-        // action
+        // getting service from HttpContext
         // GET api/values/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
+            var smpleService = HttpContext.RequestServices.GetService(typeof(SimpleService));
             return "value";
         }
 
