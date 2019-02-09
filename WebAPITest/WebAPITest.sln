@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPITest", "WebAPITest\We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Babai.Angular", "Angular\Babai.Angular.csproj", "{A93136DF-F48E-43D8-A13B-29A0F27334E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Babai.CustomMiddleware", "EmptyCore\Babai.CustomMiddleware.csproj", "{DAED071A-8E6D-48DA-8C8A-4B6777BA2FDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Babai.CustomMiddleware", "EmptyCore\Babai.CustomMiddleware.csproj", "{DAED071A-8E6D-48DA-8C8A-4B6777BA2FDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Babai.EntityFramework", "Babai.EntityFramework\Babai.EntityFramework.csproj", "{6450CFA7-41C2-40DA-BE78-BED4E7004A4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Babai.EntityFramework", "Babai.EntityFramework\Babai.EntityFramework.csproj", "{6450CFA7-41C2-40DA-BE78-BED4E7004A4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Babai.Filters", "Babai.Filters\Babai.Filters.csproj", "{EF02C4C8-1852-42E1-9AEC-6CCD28644FB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{6450CFA7-41C2-40DA-BE78-BED4E7004A4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6450CFA7-41C2-40DA-BE78-BED4E7004A4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6450CFA7-41C2-40DA-BE78-BED4E7004A4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF02C4C8-1852-42E1-9AEC-6CCD28644FB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF02C4C8-1852-42E1-9AEC-6CCD28644FB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF02C4C8-1852-42E1-9AEC-6CCD28644FB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF02C4C8-1852-42E1-9AEC-6CCD28644FB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
