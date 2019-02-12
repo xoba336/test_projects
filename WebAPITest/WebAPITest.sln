@@ -11,9 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Babai.CustomMiddleware", "E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Babai.EntityFramework", "Babai.EntityFramework\Babai.EntityFramework.csproj", "{6450CFA7-41C2-40DA-BE78-BED4E7004A4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Babai.Filters", "Babai.Filters\Babai.Filters.csproj", "{EF02C4C8-1852-42E1-9AEC-6CCD28644FB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Babai.Filters", "Babai.Filters\Babai.Filters.csproj", "{EF02C4C8-1852-42E1-9AEC-6CCD28644FB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Babai.Authorization", "Babai.Authorization\Babai.Authorization.csproj", "{FF9F73BC-55B8-46CF-9C71-6FF0253ED808}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Babai.Authorization", "Babai.Authorization\Babai.Authorization.csproj", "{FF9F73BC-55B8-46CF-9C71-6FF0253ED808}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Babai.Web.Api.Authorization", "Babai.Web.Api.Authorization\Babai.Web.Api.Authorization.csproj", "{2A06DCE2-2260-42A4-8534-F3D3131D3712}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Babai.AspNetCoreIdentity", "Babai.AspNetCoreIdentity\Babai.AspNetCoreIdentity.csproj", "{89F821E1-E335-41C9-92FA-3E6C483165B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{FF9F73BC-55B8-46CF-9C71-6FF0253ED808}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF9F73BC-55B8-46CF-9C71-6FF0253ED808}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF9F73BC-55B8-46CF-9C71-6FF0253ED808}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A06DCE2-2260-42A4-8534-F3D3131D3712}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A06DCE2-2260-42A4-8534-F3D3131D3712}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A06DCE2-2260-42A4-8534-F3D3131D3712}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A06DCE2-2260-42A4-8534-F3D3131D3712}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89F821E1-E335-41C9-92FA-3E6C483165B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89F821E1-E335-41C9-92FA-3E6C483165B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89F821E1-E335-41C9-92FA-3E6C483165B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89F821E1-E335-41C9-92FA-3E6C483165B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
