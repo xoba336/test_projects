@@ -82,7 +82,6 @@ namespace Test_V_Clinic
                         editAnimal[0].Nickname = textBox6.Text;
                         db.SaveChanges();
                     }
-
                     db.Dispose();
                 }
 
@@ -103,6 +102,11 @@ namespace Test_V_Clinic
                 checkBox5.Checked = (bool)paramAnimal.Indoor;
                 textBox6.Text = paramAnimal.Nickname;
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

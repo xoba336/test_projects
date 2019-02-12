@@ -21,19 +21,7 @@ namespace Test_V_Clinic
         private void Form1_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'userstoredbDataSet.Animals' table. You can move, or remove it, as needed.
-            this.animalsTableAdapter.Fill(this.userstoredbDataSet.Animals);
-
-            /*using (UserstoredbContext db = new UserstoredbContext())
-            {
-                List<Animals> animals = db.Animals.AsQueryable().ToList();
-
-
-                foreach (var item in animals)
-                {
-                    dgrid_animals.Rows.Add(item);
-                }
-            }*/
-                
+            this.animalsTableAdapter.Fill(this.userstoredbDataSet.Animals);  
         }
 
         private void bt_Add_Click(object sender, EventArgs e)
@@ -41,12 +29,6 @@ namespace Test_V_Clinic
             AnimalForm af = new AnimalForm();
             af.Action = "Add";
             af.ShowDialog(this);
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //Refresh grid
-            this.animalsTableAdapter.Fill(this.userstoredbDataSet.Animals);
         }
 
         private void bt_Edit_Click(object sender, EventArgs e)
@@ -102,6 +84,12 @@ namespace Test_V_Clinic
                 MessageBox.Show("Select some row to Delete.");
                 return;
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //Refresh grid
+            this.animalsTableAdapter.Fill(this.userstoredbDataSet.Animals);
         }
     }
 }
