@@ -1,0 +1,13 @@
+Request starting HTTP/1.1 GET https://localhost:5001/  
+--========================Errror, Path/
+--======================Authentification failed
+Request finished in 48.8732ms 403 
+Request starting HTTP/1.1 GET https://localhost:5001/?token=1  
+--========================Errror, Path/
+--======================Authentification OK.
+--======================At Home Page
+Request finished in 1774.3851ms 200 
+Request starting HTTP/1.1 GET https://localhost:5001/  
+--========================Errror, Path/
+--======================Authentification failed
+Request finished in 75.8716ms 403 
