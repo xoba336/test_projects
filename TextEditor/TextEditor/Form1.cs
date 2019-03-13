@@ -29,7 +29,10 @@ namespace TextEditor
 
             //this.gv_Files
             //Read to GridView files
-            DataTable dtFiles = DatabaseHelper.ReadFilesFromDB();
+
+            Task<DataTable> asyncTask = Task<DataTable>.Factory.StartNew(() => DatabaseHelper.ReadFilesFromDB());
+            DataTable dtFiles = asyncTask.Result;
+            //DataTable dtFiles = DatabaseHelper.ReadFilesFromDB();
 
             gv_Files.DataSource = dtFiles;
 
@@ -40,7 +43,7 @@ namespace TextEditor
 
         private void btn_AddFile_Click(object sender, EventArgs e)
         {
-            DatabaseHelper.AddFileToDB();
+            Task.Run(()=>DatabaseHelper.AddFileToDB());
         }
 
         private void gv_Files_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

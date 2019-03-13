@@ -9,6 +9,8 @@ using System.Configuration;
 using System.Xml.Linq;
 using System.Data;
 using System.Xml;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace TextEditor.Helper
 {
@@ -84,6 +86,9 @@ namespace TextEditor.Helper
 
         public static DataTable ReadFilesFromDB()
         {
+            MessageBox.Show("Before sleep: "+ DateTime.Now);
+            Thread.Sleep(10000);
+            MessageBox.Show("After sleep: " + DateTime.Now);
             List<string> fileNames = new List<string>();
             DataTable dt = new DataTable();
             dt.Columns.Add("id", typeof(int));
@@ -104,22 +109,11 @@ namespace TextEditor.Helper
                 {
                     byte[] fileBytes = (byte[])readedFiles["file"];
 
-                    /*XmlDocument doc = new XmlDocument();
-                    MemoryStream ms = new MemoryStream(fileBytes);
-                    doc.Load(ms);*/
-
                     System.Text.Encoding enc = System.Text.Encoding.UTF8;
                     string myFile = enc.GetString(fileBytes);
 
-
                     dt.Rows.Add(readedFiles["id"].ToString(), readedFiles["file_name"].ToString(), readedFiles["file_format"].ToString(), myFile);
 
-
-                    /*DataRow dr = dt.NewRow();
-                    dr["Name"] = readedFiles["file_name"].ToString();
-                    dt.Rows.Add(dr);*/
-
-                    //fileNames.Add(readedFiles["file_name"].ToString());
                 }
                 conn.Close();
                 
