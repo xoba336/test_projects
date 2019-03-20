@@ -1,0 +1,5 @@
+﻿CREATE TABLE IF NOT EXISTS [FileStorage] (
+[Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+[file_format] VARCHAR(10), 
+[file_name] VARCHAR(128), 
+[content] BINARY)

@@ -2,128 +2,111 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Configuration;
 using System.Xml.Linq;
 using System.Data;
-using System.Xml;
-using System.Threading;
 using System.Windows.Forms;
+using TextEditor.Model;
+using System.Linq;
+using System.Data.Entity;
+using System.Text;
 
 namespace TextEditor.Helper
 {
     class DatabaseHelper
     {
+        private static string CurrentDirectory = System.IO.Directory.GetCurrentDirectory();
         public static void CreteDatabase()
         {
-            string dbPath = System.IO.Directory.GetCurrentDirectory()+@"\mydatabase.db";
+            string dbName = DatabaseHelper.GetConnection().ConnectionString.Replace("Data Source=", "").ToString();
+            string dbPath = System.IO.Directory.GetCurrentDirectory()+ @"\" + dbName;
             if(!File.Exists(dbPath))
             {
                 SQLiteConnection.CreateFile(dbPath);
-
-                
-
             }
-            CreteTable();
+            CreateTable();
         }
 
-        private static void CreteTable()
+        private static void CreateTable()
         {
-
             SQLiteConnection conn = GetConnection();
-
-            using (conn) {
+            using (conn)
+            {
                 // create table if not exist
-                string commandText = "CREATE TABLE IF NOT EXISTS [files] ( [id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [file] BINARY, [file_format] VARCHAR(10), [file_name] NVARCHAR(128))";
-
+                string commandText = File.ReadAllText(System.IO.Directory.GetCurrentDirectory() + @"\Scripts\sql_create.sqlite");
                 SQLiteCommand command = new SQLiteCommand(commandText, conn);
                 conn.Open();
                 command.ExecuteNonQuery();
                 conn.Close();
             }
-
-            string qq = "dsf";
         }
 
-        public static void AddFileToDB()
+        public static string ReadFileContentByID(int clickedFile)
         {
-            //Create test file
-            string filePath = System.IO.Directory.GetCurrentDirectory() + @"\test1.xml";
-            if (!File.Exists(filePath))
+            using (var db = new FilestorageContext())
             {
-                new XDocument( new XElement("root", new XElement("User", "Alex")) ).Save("test1.xml");
+                List<FileStorage> selectedFileRow = db.FileStorages.Where(x => x.Id == clickedFile).ToList();
+                byte[] fileBytes = (byte[])selectedFileRow[0].content;
+                System.Text.Encoding enc = System.Text.Encoding.UTF8;
+                string selectedFile = enc.GetString(fileBytes);
+                return selectedFile;
             }
+        }
 
-            // Convert file to byte[]
-            FileInfo _fInfo = new FileInfo(filePath);
-            long _numBytes = _fInfo.Length;
-            FileStream _fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read); // read file
-            BinaryReader _binReader = new BinaryReader(_fileStream);
-            byte[] _fileBytes = _binReader.ReadBytes((int)_numBytes); // file in bytes
-
-            //Get file format
-            string fFormat = Path.GetExtension(filePath).Replace(".", "").ToLower();
-
-            //Get file name
-            string fName = Path.GetFileName(filePath).Replace(Path.GetExtension(filePath), "");
-
-            SQLiteConnection conn = GetConnection();
-            using (conn)
+        internal static void SaveFileToDatabase(string content, string fileName, string fileType)
+        {
+            byte[] _fileToSave_bytes = Encoding.UTF8.GetBytes(content);
+            //string fileFormat = fileName.First()
+            using (var db = new FilestorageContext())
             {
-                string commandText = "INSERT INTO [files] ([file], [file_format], [file_name]) VALUES(@file, @format, @name)";
-                SQLiteCommand command = new SQLiteCommand(commandText, conn);
-                command.Parameters.AddWithValue("@file", _fileBytes);
-                command.Parameters.AddWithValue("@format", fFormat);
-                command.Parameters.AddWithValue("@name", fName);
-                conn.Open();
-                command.ExecuteNonQuery();
-                conn.Clone();
+                FileStorage f1 = new FileStorage();
+                f1.file_name = fileName;
+                f1.file_format = fileType;
+                f1.content = _fileToSave_bytes;
+                db.FileStorages.Add(f1);
+                db.SaveChanges();
             }
-
         }
 
         public static DataTable ReadFilesFromDB()
         {
-            MessageBox.Show("Before sleep: "+ DateTime.Now);
-            Thread.Sleep(10000);
-            MessageBox.Show("After sleep: " + DateTime.Now);
-            List<string> fileNames = new List<string>();
             DataTable dt = new DataTable();
             dt.Columns.Add("id", typeof(int));
             dt.Columns.Add("file_name", typeof(string));
             dt.Columns.Add("file_format", typeof(string));
-            dt.Columns.Add("file", typeof(string));
 
             SQLiteConnection conn = GetConnection();
 
             using (conn)
             {
-                string commandText = @" SELECT * FROM [files]";
+                string commandText = File.ReadAllText(CurrentDirectory + @"\Scripts\sql_selectAll.sqlite");
                 SQLiteCommand command = new SQLiteCommand(commandText, conn);
 
                 conn.Open();
                 SQLiteDataReader readedFiles =  command.ExecuteReader();
                 while(readedFiles.Read())
                 {
-                    byte[] fileBytes = (byte[])readedFiles["file"];
-
+                    /*byte[] fileBytes = (byte[])readedFiles["content"];
                     System.Text.Encoding enc = System.Text.Encoding.UTF8;
-                    string myFile = enc.GetString(fileBytes);
-
-                    dt.Rows.Add(readedFiles["id"].ToString(), readedFiles["file_name"].ToString(), readedFiles["file_format"].ToString(), myFile);
-
+                    string myFile = enc.GetString(fileBytes);*/
+                    dt.Rows.Add(readedFiles["id"].ToString(), readedFiles["file_name"].ToString(), readedFiles["file_format"].ToString()); //, myFile
                 }
                 conn.Close();
-                
             }
             return dt;
         }
 
         private static SQLiteConnection GetConnection()
         {
-            return new SQLiteConnection(ConfigurationManager.ConnectionStrings["ConnectionStringSQLite"].ToString());
+            try
+            {
+                return new SQLiteConnection(ConfigurationManager.ConnectionStrings[0].ToString());
+            }
+            catch (NullReferenceException ex)
+            {
+                MessageBox.Show("connectionStrings not exist in App.config: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return null;
         }
     }
 }

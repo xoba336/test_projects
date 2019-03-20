@@ -1,0 +1,1 @@
+﻿INSERT INTO [FileStorage] ([content], [file_format], [file_name]) VALUES(@file, @format, @name)
