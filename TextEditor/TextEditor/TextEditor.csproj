@@ -97,6 +97,7 @@
       <DependentUpon>FormSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper\DatabaseHelper.cs" />
+    <Compile Include="Helper\InfoLabel.cs" />
     <Compile Include="Model\FileStorage.cs" />
     <Compile Include="Model\FilestorageContext.cs" />
     <Compile Include="Model\GlobalFileInfo.cs" />

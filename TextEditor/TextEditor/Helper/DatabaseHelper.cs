@@ -10,12 +10,14 @@ using TextEditor.Model;
 using System.Linq;
 using System.Data.Entity;
 using System.Text;
+using System.Threading;
 
 namespace TextEditor.Helper
 {
     class DatabaseHelper
     {
         private static string CurrentDirectory = System.IO.Directory.GetCurrentDirectory();
+
         public static void CreteDatabase()
         {
             string dbName = DatabaseHelper.GetConnection().ConnectionString.Replace("Data Source=", "").ToString();
@@ -46,17 +48,20 @@ namespace TextEditor.Helper
             using (var db = new FilestorageContext())
             {
                 List<FileStorage> selectedFileRow = db.FileStorages.Where(x => x.Id == clickedFile).ToList();
-                byte[] fileBytes = (byte[])selectedFileRow[0].content;
+                byte[] fileBytes = (byte[])selectedFileRow.FirstOrDefault().content;
                 System.Text.Encoding enc = System.Text.Encoding.UTF8;
                 string selectedFile = enc.GetString(fileBytes);
+                //TODO unpack
                 return selectedFile;
             }
         }
 
-        internal static void SaveFileToDatabase(string content, string fileName, string fileType)
+        public static void SaveFileToDatabase(string content, string fileName, string fileType, InfoLabel lbInfo)
         {
+            //TODO pack file
+            Thread.Sleep(10000);
             byte[] _fileToSave_bytes = Encoding.UTF8.GetBytes(content);
-            //string fileFormat = fileName.First()
+
             using (var db = new FilestorageContext())
             {
                 FileStorage f1 = new FileStorage();
@@ -66,6 +71,7 @@ namespace TextEditor.Helper
                 db.FileStorages.Add(f1);
                 db.SaveChanges();
             }
+            lbInfo.Print(fileName+ " saved. Storage: Database");
         }
 
         public static DataTable ReadFilesFromDB()

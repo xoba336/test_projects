@@ -27,7 +27,7 @@ namespace TextEditor.Model
         }
     }
 
-    public class FilestorageDBInitializer : CreateDatabaseIfNotExists<FilestorageContext>  // CreateDatabaseIfNotExists<BookContext>
+    /*public class FilestorageDBInitializer : CreateDatabaseIfNotExists<FilestorageContext>  // CreateDatabaseIfNotExists<BookContext>
     {
         private string CurrentDirectory = System.IO.Directory.GetCurrentDirectory();
         protected override void Seed(FilestorageContext db)
@@ -54,5 +54,5 @@ namespace TextEditor.Model
 
             base.Seed(db);
         }
-    }
+    }*/
 }
