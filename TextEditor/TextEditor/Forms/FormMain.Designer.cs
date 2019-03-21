@@ -112,7 +112,7 @@
             // conToolStripMenuItem
             // 
             this.conToolStripMenuItem.Name = "conToolStripMenuItem";
-            this.conToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.conToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.conToolStripMenuItem.Text = "Settings";
             this.conToolStripMenuItem.Click += new System.EventHandler(this.conToolStripMenuItem_Click);
             // 
@@ -130,14 +130,14 @@
             this.hddToolStripMenuItem.Checked = true;
             this.hddToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.hddToolStripMenuItem.Name = "hddToolStripMenuItem";
-            this.hddToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hddToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.hddToolStripMenuItem.Text = "HDD";
             this.hddToolStripMenuItem.Click += new System.EventHandler(this.hddToolStripMenuItem_Click);
             // 
             // databaseToolStripMenuItem
             // 
             this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
-            this.databaseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.databaseToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.databaseToolStripMenuItem.Text = "Database";
             this.databaseToolStripMenuItem.Click += new System.EventHandler(this.databaseToolStripMenuItem_Click);
             // 
@@ -150,7 +150,7 @@
             // 
             // btXmlType
             // 
-            this.btXmlType.Location = new System.Drawing.Point(1024, 27);
+            this.btXmlType.Location = new System.Drawing.Point(1019, 25);
             this.btXmlType.Name = "btXmlType";
             this.btXmlType.Size = new System.Drawing.Size(75, 23);
             this.btXmlType.TabIndex = 4;
@@ -160,7 +160,7 @@
             // 
             // btJsonType
             // 
-            this.btJsonType.Location = new System.Drawing.Point(1024, 56);
+            this.btJsonType.Location = new System.Drawing.Point(1019, 56);
             this.btJsonType.Name = "btJsonType";
             this.btJsonType.Size = new System.Drawing.Size(75, 23);
             this.btJsonType.TabIndex = 5;
@@ -170,7 +170,7 @@
             // 
             // btTxtType
             // 
-            this.btTxtType.Location = new System.Drawing.Point(1024, 85);
+            this.btTxtType.Location = new System.Drawing.Point(1019, 85);
             this.btTxtType.Name = "btTxtType";
             this.btTxtType.Size = new System.Drawing.Size(75, 23);
             this.btTxtType.TabIndex = 6;
