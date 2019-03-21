@@ -18,18 +18,20 @@ namespace TextEditor.Helper
     {
         private static string CurrentDirectory = System.IO.Directory.GetCurrentDirectory();
 
-        public static void CreteDatabase()
+        public static void CreteDatabase() //Create DB if file of database not exist
         {
             string dbName = DatabaseHelper.GetConnection().ConnectionString.Replace("Data Source=", "").ToString();
             string dbPath = System.IO.Directory.GetCurrentDirectory()+ @"\" + dbName;
+
             if(!File.Exists(dbPath))
             {
                 SQLiteConnection.CreateFile(dbPath);
             }
+
             CreateTable();
         }
 
-        private static void CreateTable()
+        private static void CreateTable() //Create Table in database file (use script) if table not exist
         {
             SQLiteConnection conn = GetConnection();
             using (conn)
@@ -43,12 +45,13 @@ namespace TextEditor.Helper
             }
         }
 
-        public static string ReadFileContentByID(int clickedFile)
+        public static string ReadFileContentByID(int clickedFile) //GetFile from database by ID
         {
             using (var db = new FilestorageContext())
             {
                 List<FileStorage> selectedFileRow = db.FileStorages.Where(x => x.Id == clickedFile).ToList();
                 byte[] fileBytes = (byte[])selectedFileRow.FirstOrDefault().content;
+
                 System.Text.Encoding enc = System.Text.Encoding.UTF8;
                 string selectedFile = enc.GetString(fileBytes);
                 //TODO unpack
@@ -56,10 +59,9 @@ namespace TextEditor.Helper
             }
         }
 
-        public static void SaveFileToDatabase(string content, string fileName, string fileType, InfoLabel lbInfo)
+        public static void SaveFileToDatabase(string content, string fileName, string fileType, InfoLabel lbInfo) //Save file
         {
             //TODO pack file
-            Thread.Sleep(10000);
             byte[] _fileToSave_bytes = Encoding.UTF8.GetBytes(content);
 
             using (var db = new FilestorageContext())
@@ -74,7 +76,7 @@ namespace TextEditor.Helper
             lbInfo.Print(fileName+ " saved. Storage: Database");
         }
 
-        public static DataTable ReadFilesFromDB()
+        public static DataTable ReadFilesFromDB() //Read all files from database
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("id", typeof(int));
@@ -92,9 +94,6 @@ namespace TextEditor.Helper
                 SQLiteDataReader readedFiles =  command.ExecuteReader();
                 while(readedFiles.Read())
                 {
-                    /*byte[] fileBytes = (byte[])readedFiles["content"];
-                    System.Text.Encoding enc = System.Text.Encoding.UTF8;
-                    string myFile = enc.GetString(fileBytes);*/
                     dt.Rows.Add(readedFiles["id"].ToString(), readedFiles["file_name"].ToString(), readedFiles["file_format"].ToString()); //, myFile
                 }
                 conn.Close();
@@ -102,7 +101,7 @@ namespace TextEditor.Helper
             return dt;
         }
 
-        private static SQLiteConnection GetConnection()
+        private static SQLiteConnection GetConnection() //Get Connection string from config file
         {
             try
             {

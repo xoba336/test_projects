@@ -18,7 +18,8 @@ namespace TextEditor
 {
     public partial class FormMain : Form
     {
-        private InfoLabel _InfoLabel;
+        private InfoLabel _InfoLabel; //Label to print info on main form
+
         #region Initialization
 
         public FormMain()
@@ -197,7 +198,7 @@ namespace TextEditor
 
         private string GetSelectedItem(ToolStripMenuItem menu)
         {
-            //Return selected storage and ckecked it in menu
+            //Return checked storage 
             Dictionary<string, bool> menuItems = new Dictionary<string, bool>();
             foreach (ToolStripMenuItem item in menu.DropDown.Items)
             {
@@ -296,7 +297,7 @@ namespace TextEditor
             rtb_MainEditor.ScrollToCaret();
         }
 
-        private void CheckedToolStripItem(ToolStripMenuItem menu, ToolStripMenuItem checkedItem)
+        private void CheckedToolStripItem(ToolStripMenuItem menu, ToolStripMenuItem checkedItem) //Checked/unchecked storage
         {
             foreach (ToolStripMenuItem item in menu.DropDown.Items)
             {
