@@ -16,6 +16,7 @@ namespace TextEditor.Forms
         public string FileName;
         public string FileType;
         public int SelectedFileId;
+
         public FormDatabaseFiles()
         {
             InitializeComponent();
@@ -43,7 +44,7 @@ namespace TextEditor.Forms
 
         private void ReadFilesFromDBtoGridView()
         {
-            Task<DataTable> asyncTask = Task<DataTable>.Factory.StartNew(() => DatabaseHelper.ReadFilesFromDB());
+            Task<DataTable> asyncTask = Task<DataTable>.Factory.StartNew(() => DatabaseHelper.SelectAllFiles());
             DataTable dtFiles = asyncTask.Result;
             gv_Files.DataSource = dtFiles;
         }

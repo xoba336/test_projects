@@ -13,4 +13,11 @@ namespace TextEditor.Model
         public string file_format { get; set; }
         public byte[] content { get; set; }
     }
+
+    public class FileStorageView
+    {
+        public int Id { get; set; }
+        public string file_name { get; set; }
+        public string file_format { get; set; }
+    }
 }

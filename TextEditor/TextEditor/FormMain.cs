@@ -133,6 +133,8 @@ namespace TextEditor
                             Task<string> fileFromDB = Task<string>.Factory.StartNew(() => DatabaseHelper.ReadFileContentByID(formDBFiles.SelectedFileId));
 
                             rtb_MainEditor.AppendText(fileFromDB.Result);
+                            rtb_MainEditor.Select(0, 0);
+                            rtb_MainEditor.ScrollToCaret();
                             SetGlobalFileName(formDBFiles.FileName, formDBFiles.FileType);
                             _InfoLabel.Print(formDBFiles.FileName + " opened. Storage: " + storageType);
                         }

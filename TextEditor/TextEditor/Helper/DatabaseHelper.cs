@@ -76,7 +76,42 @@ namespace TextEditor.Helper
             lbInfo.Print(fileName+ " saved. Storage: Database");
         }
 
-        public static DataTable ReadFilesFromDB() //Read all files from database
+        public static DataTable SelectAllFiles() //Read all files from database with context
+        {
+            //Create DataTable and columns from FileStorageView
+            DataTable dt = new DataTable();
+
+            Type FileStorage = typeof(FileStorageView);
+            var modelFields = FileStorage.GetProperties().ToList();
+            foreach (var item in modelFields)
+            {
+                dt.Columns.Add(item.Name, item.PropertyType);
+            }
+
+            //Get table FileStorage from database and fill datatable
+            using (var db = new FilestorageContext())
+            {
+                var list = db.FileStorages.Select(fs => new FileStorageView
+                {
+                    Id = fs.Id,
+                    file_name = fs.file_name,
+                    file_format = fs.file_format
+                }).ToList();
+
+                foreach (var item in list)
+                {
+                    DataRow row = dt.NewRow();
+                    row["Id"] = item.Id;
+                    row["file_name"] = item.file_name;
+                    row["file_format"] = item.file_format;
+                    dt.Rows.Add(row);
+                }
+            }
+
+            return dt;
+        }
+
+        public static DataTable ReadFilesFromDB() //Read all files from database with script NOT USE
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("id", typeof(int));
@@ -91,8 +126,8 @@ namespace TextEditor.Helper
                 SQLiteCommand command = new SQLiteCommand(commandText, conn);
 
                 conn.Open();
-                SQLiteDataReader readedFiles =  command.ExecuteReader();
-                while(readedFiles.Read())
+                SQLiteDataReader readedFiles = command.ExecuteReader();
+                while (readedFiles.Read())
                 {
                     dt.Rows.Add(readedFiles["id"].ToString(), readedFiles["file_name"].ToString(), readedFiles["file_format"].ToString()); //, myFile
                 }
