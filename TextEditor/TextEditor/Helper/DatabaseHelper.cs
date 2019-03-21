@@ -11,6 +11,7 @@ using System.Linq;
 using System.Data.Entity;
 using System.Text;
 using System.Threading;
+using Ionic.Zip;
 
 namespace TextEditor.Helper
 {
@@ -31,7 +32,7 @@ namespace TextEditor.Helper
             CreateTable();
         }
 
-        private static void CreateTable() //Create Table in database file (use script) if table not exist
+        private static void CreateTable() //Create Table in database file (used script) if table not exist
         {
             SQLiteConnection conn = GetConnection();
             using (conn)
@@ -45,24 +46,43 @@ namespace TextEditor.Helper
             }
         }
 
-        public static string ReadFileContentByID(int clickedFile) //GetFile from database by ID
+        public static string ReadFileContentByID(int clickedFile) //GetFile from database by ID, unzip content
         {
             using (var db = new FilestorageContext())
             {
                 List<FileStorage> selectedFileRow = db.FileStorages.Where(x => x.Id == clickedFile).ToList();
-                byte[] fileBytes = (byte[])selectedFileRow.FirstOrDefault().content;
+                byte[] content = selectedFileRow.FirstOrDefault().content;
+
+                //Unzip content if it zipped
+                Stream checkedZipStream = new MemoryStream(content);
+                if (ZipFile.IsZipFile(checkedZipStream, false))
+                {
+                    content = UnzipContent(content);
+                }
 
                 System.Text.Encoding enc = System.Text.Encoding.UTF8;
-                string selectedFile = enc.GetString(fileBytes);
-                //TODO unpack
+                string selectedFile = enc.GetString(content);
+
                 return selectedFile;
             }
         }
 
-        public static void SaveFileToDatabase(string content, string fileName, string fileType, InfoLabel lbInfo) //Save file
+        private static byte[] UnzipContent(byte[] content) //Unzip content
         {
-            //TODO pack file
-            byte[] _fileToSave_bytes = Encoding.UTF8.GetBytes(content);
+            MemoryStream unzipResult = new MemoryStream();
+            Stream zipStream = new MemoryStream(content);
+
+            using (ZipFile zip = ZipFile.Read(zipStream))
+            {
+                zip.FirstOrDefault().Extract(unzipResult);
+                return unzipResult.ToArray();
+            }
+        }
+
+        public static void SaveFileToDatabase(string content, string fileName, string fileType, InfoLabel lbInfo) //Zip and Save file to DB
+        {
+            //Zip file before write to DB
+            byte[] _fileToSave_bytes = ZipContent(content, fileName);
 
             using (var db = new FilestorageContext())
             {
@@ -74,6 +94,17 @@ namespace TextEditor.Helper
                 db.SaveChanges();
             }
             lbInfo.Print(fileName+ " saved. Storage: Database");
+        }
+
+        private static byte[] ZipContent(string content, string fileName) //Zip content
+        {
+            MemoryStream zippedMs = new MemoryStream();
+            using (ZipFile zip = new ZipFile())
+            {
+                zip.AddEntry(fileName, content, Encoding.UTF8);
+                zip.Save(zippedMs);
+                return zippedMs.ToArray();
+            }
         }
 
         public static DataTable SelectAllFiles() //Read all files from database with context
