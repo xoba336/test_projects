@@ -111,13 +111,14 @@ namespace TextEditor
                     OpenFileDialog of = new OpenFileDialog();
                     of.Title = "Open file.";
                     of.Filter = "XML|*.xml|JSON|*.json|Text|*.txt|All files(*.*)|*.*";
+
                     if (of.ShowDialog() == DialogResult.Cancel)
                     {
                         return;
                     }
-                    string fileName = of.FileName;
-                    OpenFileFromHDD(fileName);
-                    _InfoLabel.Print(fileName + " opened. Storage: " + storageType);
+
+                    OpenFileFromHDD(of.FileName);
+                    _InfoLabel.Print(of.FileName + " opened. Storage: " + storageType);
                     break;
                 case "Database":
                     using (var formDBFiles = new FormDatabaseFiles())
@@ -141,7 +142,6 @@ namespace TextEditor
 
         private void OpenFileFromHDD(string fileName)
         {
-            //rtb_MainEditor.Clear();
             string file_hdd = File.ReadAllText(fileName, Encoding.UTF8);
 
             rtb_MainEditor.Text = file_hdd;
@@ -161,14 +161,15 @@ namespace TextEditor
                     sf.Title = "Save file to " + type;
                     sf.Filter = "XML|*.xml|JSON|*.json|TXT|*.txt|All files(*.*)|*.*";
                     sf.FileName = GlobalFileInfo.FileName;
+
                     if (sf.ShowDialog() == DialogResult.Cancel)
                     {
                         return;
                     }
-                    string fileNamePath = sf.FileName;
                     string fileName = System.IO.Path.GetFileNameWithoutExtension(sf.FileName);
-                    string fileType = System.IO.Path.GetExtension(sf.FileName);
-                    System.IO.File.WriteAllText(fileNamePath, rtb_MainEditor.Text);
+
+                    System.IO.File.WriteAllText(sf.FileName, rtb_MainEditor.Text);
+
                     SetGlobalFileName(System.IO.Path.GetFileNameWithoutExtension(sf.FileName), System.IO.Path.GetExtension(sf.FileName));
                     _InfoLabel.Print(fileName + " saved. Storage: " + type);
                     break;
@@ -196,6 +197,7 @@ namespace TextEditor
 
         private string GetSelectedItem(ToolStripMenuItem menu)
         {
+            //Return selected storage and ckecked it in menu
             Dictionary<string, bool> menuItems = new Dictionary<string, bool>();
             foreach (ToolStripMenuItem item in menu.DropDown.Items)
             {
@@ -211,14 +213,17 @@ namespace TextEditor
             this.Text = fileName + " - Text Editor";
         }
 
-        private void XMLHighlight()
+        private void XMLHighlight() //Highligft xml syntax
         {
+            //Set List of regex and colors for xml syntax
             List<RegexColor> matches = new List<RegexColor>();
             matches.Add(new RegexColor() { Regex = @"<[^>]+>", Color = Color.Brown, });
             matches.Add(new RegexColor() { Regex = @"<\?|<|/>|</|>|\?>", Color = Color.Blue });
 
+            //Get List of Matches and colors for hilight xml
             List<MatchesHilight> matchesList = GetAllMatchesHilighting(matches);
 
+            //Hilight xml
             foreach (MatchesHilight item in matchesList)
             {
                 rtb_MainEditor.Select(item.Match.Index, item.Match.Length);
@@ -226,15 +231,18 @@ namespace TextEditor
             }
         }
 
-        private void JsonHilight()
+        private void JsonHilight() //Highligft json syntax
         {
+            //Set List of regex and colors for json syntax
             List<RegexColor> matches = new List<RegexColor>();
             matches.Add(new RegexColor() { Regex = "\"(.*?)\"", Color = Color.Brown,  });
             matches.Add(new RegexColor() { Regex = ": \"(.*?)\"", Color = Color.Blue });
             matches.Add(new RegexColor() { Regex = ":\"(.*?)\"", Color = Color.Blue });
 
+            //Get List of Matches and colors for hilight json
             List<MatchesHilight> matchesList = GetAllMatchesHilighting(matches);
 
+            //Hilight json
             foreach (MatchesHilight item in matchesList)
             {
                 rtb_MainEditor.Select(item.Match.Index+1, item.Match.Length);
@@ -242,7 +250,7 @@ namespace TextEditor
             }
         }
 
-        private List<MatchesHilight> GetAllMatchesHilighting(List<RegexColor> matchesRegex)
+        private List<MatchesHilight> GetAllMatchesHilighting(List<RegexColor> matchesRegex) //return all mathes for highlighting methods
         {
             List<MatchesHilight> result = new List<MatchesHilight>();
 
